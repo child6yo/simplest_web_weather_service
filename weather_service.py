@@ -13,7 +13,6 @@ Celsius = int
 
 class Weather(NamedTuple):
     temperature: Celsius
-    city: str
 
 
 class OpenmeteoParcer:
@@ -24,7 +23,7 @@ class OpenmeteoParcer:
     def get_weather(self, coordinates: Coordinates) -> Weather:
         url = self.__url_formatter(coordinates)
         raw_weather = self.__weather_parcer(url)
-        weather = self.__weather_formatter(raw_weather, coordinates.city)
+        weather = self.__weather_formatter(raw_weather)
         return weather
 
     def __weather_parcer(self, url: str) -> dict:
@@ -38,10 +37,8 @@ class OpenmeteoParcer:
         formatted_url = self.currentweatherurl.format(latitude, longitude)
         return formatted_url
 
-    def __weather_formatter(self, raw_data: dict, city_name: str) -> Weather:
+    def __weather_formatter(self, raw_data: dict) -> Weather:
         temperature = int(raw_data["current"]["temperature_2m"])
-        city = city_name
         return Weather(
             temperature=temperature,
-            city=city,
         )
