@@ -9,7 +9,9 @@ class Coordinates(NamedTuple):
     latitude: set
     longtitude: str
 
+
 Celsius = int
+
 
 class Weather(NamedTuple):
     temperature: Celsius
@@ -24,7 +26,7 @@ class OpenmeteoParcer:
         self.currentweatherurl = OPENMETEO_CURRENTWEATHER_URL
 
     def get_weather(self, coordinates: Coordinates) -> Weather:
-        """Return current temperature by coordinates in Celsius format."""
+        """Return current weather by coordinates as Weather object."""
         url = self.__url_formatter(coordinates)
         raw_weather = self.__weather_parcer(url)
         weather = self.__weather_formatter(raw_weather)
