@@ -2,14 +2,8 @@ from server import Server
 from config_data import config
 import select
 
-from weather_service import OpenmeteoParcer, Coordinates
-
-weather_service = OpenmeteoParcer()
-current_weather = weather_service.get_weather(Coordinates(latitude=53.36056, longtitude=83.76361))
-
 server = Server(config.HOST, config.PORT)
 server._tasks.append(server._server())
-server.content = weather_service.get_weather
 
 def event_loop():
     while any([server._tasks, server._inputs, server._outputs]):
