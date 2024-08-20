@@ -18,9 +18,13 @@ class Weather(NamedTuple):
 class OpenmeteoParcer:
 
     def __init__(self) -> None:
+        """Current weather parcer from open-meteo.com
+
+        (https://open-meteo.com/)"""
         self.currentweatherurl = OPENMETEO_CURRENTWEATHER_URL
 
     def get_weather(self, coordinates: Coordinates) -> Weather:
+        """Return current temperature by coordinates in Celsius format."""
         url = self.__url_formatter(coordinates)
         raw_weather = self.__weather_parcer(url)
         weather = self.__weather_formatter(raw_weather)
